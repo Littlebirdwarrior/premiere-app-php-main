@@ -1,13 +1,55 @@
 <!----
 session:
+Une session en PHP correspond à une façon de stocker des données différentes pour chaque utilisateur en utilisant un identifiant de session unique. (cookie PHPSESSID envoyé au navigateur).
+Les sessions permettent de conserver des informations pour un utilisateur lorsqu’il navigue d’une page à une autre. 
+De plus, les informations de session ne vont cette fois-ci pas être stockées sur les ordinateurs de 
+vos visiteurs à la différence des cookies mais plutôt côté serveur ce qui fait que les sessions vont pouvoir être beaucoup plus sûres que les cookies.
+- Une session démarre dès que la fonction session_start() est appelée et se termine en général dès que la fenêtre courante du navigateur est fermée.
+- La superglobale $_SESSION est un tableau associatif qui va contenir toutes les données de session une fois la session démarrée.
+source : https://www.pierre-giraud.com/php-mysql-apprendre-coder-cours/session-definition-utilisation/
+https://openclassrooms.com/fr/courses/918836-concevez-votre-site-web-avec-php-et-mysql/4239476-conservez-des-donnees-grace-aux-sessions-et-aux-cookies
 
 cookie:
+Un cookie est un petit fichier texte qui ne peut contenir qu’une quantité limitée de données.Les cookies vont être stockés sur les ordinateurs de vos visiteurs. 
+Ils sont utilisé pour faciliter la vie des utilisateurs en préenregistrant des données les concernant comme un nom d’utilisateur par exemple. 
+Dès qu’un utilisateur connu demande à accéder à une page de notre site, les cookies vont également automatiquement être envoyées dans la requête de l’utilisateur.
+- Un utilisateur peut lui même supprimer les cookies de son ordinateur à tous moment.
+- On pourra définir la date d’expiration d’un cookie.
+- Aucune maitrise ni aucun moyen de les sécuriser après le stockage (jamais de données sensibles sur les cookies).
+- Pour récupérer la valeur d’un cookie, nous allons utiliser la variable superglobale $_COOKIE.
+source: https://www.pierre-giraud.com/php-mysql-apprendre-coder-cours/cookie-creation-gestion/
 
 superglobales:
+Cette superglobale va nous permettre d’accéder à des variables définies dans l’espace global depuis n’importe où dans le script et notamment depuis un espace local (dans une fonction).
+ Quand on la test avec isset(), renvois tjs quelque chose. 
+Ces variables sont automatiquement stockée dans superglobale $GLOBALS, qui est un tableau associatif qui contient les noms des variables créées dans l’espace global en index et leurs valeurs en valeurs du tableau.
+
+Ce tableau est un tableau associatif qui contient les noms des variables créées dans l’espace global en index et leurs valeurs en valeurs du tableau.
+Il y en a 9:
+$GLOBALS
+$_SERVER
+$_GET
+$_POST
+$_FILES
+$_COOKIE
+$_SESSION
+$_REQUEST
+$_ENV
 
 requete http:
+Le HTTP est le protocole qui permet d’échanger des pages web entre le client et le serveur.
+
 
 faille xss:
+Une faille xss (cross-site scripting) est une vulnérabilité permettant d'injecter du contentus dans une page 
+pour prendre le contrôle de votre navigateur, le plus souvent grâce aux cookies ou au session. L'attaquant peut utiliser tous les languages pris en charge par le navigateur (Js, Java) 
+pour injecter un script malveillant.
+Un exemple classique d'attaque est la redirection vers un autre site pour de l'hameçonnage, ou le vols de session grâce au cookie.
+source : Openclassroom et https://fr.wikipedia.org/wiki/Cross-site_scripting
+
+
+ob_start() temporisation de sortie:
+
 ---->
 
 
