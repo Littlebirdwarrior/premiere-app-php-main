@@ -57,7 +57,7 @@
                  $total = $product["price"]*$product["qtt"];
                  echo "<tr>
                           <td>".$index."</td>
-                          <td><a href='traitement.php?action=detail&id=$index'>".$product['name']."</a></td>
+                          <td><a href='detail.php'>".$product['name']."</a></td>
                           <td>".number_format($product['price'],2, ",", "&nbsp;"). "&nbsp;€</td>
                           <td>
                                 <a class='up-qtt' href='traitement.php?action=up-qtt&id=$index'>+</a>

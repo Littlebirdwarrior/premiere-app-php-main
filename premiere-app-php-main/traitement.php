@@ -37,18 +37,30 @@ $_REQUEST
 $_ENV
 
 requete http:
-Le HTTP est le protocole qui permet d’échanger des pages web entre le client et le serveur.
+Le HTTP est le protocole qui permet d’échanger des pages web entre le client et le serveur. HTTP : le protocole qui permet d’échanger des pages web entre le client et le serveur.
+GET,(utilisée pour demander une ressource)
+POST, (envoyer de grandes quantités de données, par exemple des images, ou des données confidentielles de formulaires au serveur)
+HEAD, (interroger l’en-tête de la réponse, sans que le fichier ne vous soit envoyé immédiatement.)
+OPTIONS,(demander quelles méthodes le serveur supporte pour le fichier en question)
+TRACE(utilisée pour tracer le chemin qu’une requête HTTP emprunte jusqu’au serveur puis jusqu’au client.)
+Méthodes spécifiques( ne sont applicables que dans le cadre de configurations spécifiques, ex: PATCH, PROPFIND, PROPPATCH, MKCOL, COPY, MOVE, LOCK, UNLOCK )
+source: https://www.ionos.fr/digitalguide/hebergement/aspects-techniques/requete-http/
 
 
 faille xss:
 Une faille xss (cross-site scripting) est une vulnérabilité permettant d'injecter du contentus dans une page 
-pour prendre le contrôle de votre navigateur, le plus souvent grâce aux cookies ou au session. L'attaquant peut utiliser tous les languages pris en charge par le navigateur (Js, Java) 
+pour prendre le contrôle de votre navigateur, le plus souvent grâce aux cookies ou au session. L'attaquant peut utiliser tous les languages pris en charge par le navigateur (Js, html, css) 
 pour injecter un script malveillant.
 Un exemple classique d'attaque est la redirection vers un autre site pour de l'hameçonnage, ou le vols de session grâce au cookie.
 source : Openclassroom et https://fr.wikipedia.org/wiki/Cross-site_scripting
 
+en php on utlise les filer input , filter_var, htmlentities, htmlspecialchars
 
-ob_start() temporisation de sortie:
+ob_start() / temporisation de sortie:
+PHP peut bloquer l’envoi des données au navigateur grâce à la fonction ob_start() qui enclenche une temporisation de sortie. 
+Cela signifie que les données ne sont pas directement envoyées mais temporairement mises en tampon.
+L’intérêt de la temporisation est de pouvoir travailler sur le contenu avant de l’envoyer au navigateur.
+Le tempon, c'est une variables qui met en template une page.
 
 ---->
 
@@ -56,20 +68,20 @@ ob_start() temporisation de sortie:
 <?php
     /*Ici, on retrouve le php qui traite le formulaire et construit les informations*/
 
-    session_start();//ici, pas de header, nécessité de l'importer
+    session_start();//ici, pas de header, nécessité de l'importer pour demarrer la session
 
-    if(isset($_GET['action'])){
+    if(isset($_GET['action'])){ //Si il y a le mot action dans l'URK
         /*quand on clique sur un élément html qui a un attribut action ou un href, on déclanche un if différencié par le switch-case
         les actions se lance grâce aux url*/
 
 
         switch($_GET['action']){
         //*-------------------AJOUTER UN PRODUIT---------------------
-            case "add":
+            case "add": // 
                 //récupérer info form : ce if ne se déclenche que lorsqu'on submit le form
                 if(isset($_POST['submit'])){
 
-                   // Image pas obligatoire
+                   // Image pas obligatoire pour le submit, du coup, on conditionne son execution
                     if(isset($_FILES['file'])){
                        // Initialisation var:
                         $tmpName = $_FILES['file']['tmp_name'];
@@ -178,34 +190,8 @@ ob_start() temporisation de sortie:
         //*-------------------AFFICHER LE DETAIL D'UN PRODUIT---------------------
             case "detail":
                 if(isset($_GET["id"]) && isset($_SESSION["products"][$_GET["id"]])){
-
-                    //Affichage
-                    echo '
-                    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-                    <!----icons--->
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-                    <!----css--->
-                    <link href="styles.css" rel="stylesheet">
-                
-                    <!---description--->
-                    <div class="description">
-                        <div class="desc-content">
-                            <a href="recap.php"><span id="close" class="material-symbols-outlined close">close</span></a>
-                            <figure>
-                                <img src= upload/'. $_SESSION["products"][$_GET["id"]]["imgPath"].' alt="img"/> 
-                                <figcaption>
-                                    <h2>Mon produit</h2>
-                                
-                                    <span><strong>Prix : </strong>'.number_format($_SESSION["products"][$_GET["id"]]['price'],2, ",", "&nbsp;"). ' &nbsp;€</span>
-                                    <span>
-                                        <strong>Description :</strong>
-                                        '.$_SESSION["products"][$_GET["id"]]['desc'].'
-                                    </span>
-                                </figcaption>
-                            </figure>
-                        </div>
-                    </div>
-                    ';     
+                    header("Location:detail.php");
+                    die();
                 }
                 else $_SESSION["message"] = "Détail impossible à afficher";
                 break;

@@ -5,7 +5,7 @@
 session_start(); /*Importé dans le header car sera présente partout,
 deux utilités : démarrer une session sur le serveur
 pour l'utilisateur courant, ou récupérer la session de ce même utilisateur s'il en avait déjà une. (cookie PHPSESSID dans le navigateur client)
-, cela permet de recupérer la session avec toutes les variables enregistrée ,
+, cela permet de recupérer la session avec tout son centnu  ,
 NB: si soucis avec la session, utiliser session_destroy().*/
 
 

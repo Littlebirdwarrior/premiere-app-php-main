@@ -55,7 +55,7 @@
                 Image du produit :
                 <span>
                 <input type="file" name="file">
-                <input type="submit" name="submit" value="Ajouter">
+                
                 </span>
             </label>
         </p>
